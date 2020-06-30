@@ -37,5 +37,14 @@ start:
     cout << currencyToText(amount, language_choice, system_choice);
     cout << "" << fraction_part << "/100.";
 
+    cout << "\n Convert again? (y/n) : ";
+    char ans;
+    cin >> ans;
+    if(ans == 'y')
+    {
+        cout << endl;
+        goto start;
+    }
+    
     cout << "\n\n.........................\n\n";
 }
