@@ -8,7 +8,7 @@ using namespace std;
 
 #define inputLength 16
 
-string languageSymbols[107];    //Stores number dictionary of a given language
+string languageSymbols[108];    //Stores number dictionary of a given language
 string symbol(int n)            //retrieves required symbol
 {
     string returnWord = "";
