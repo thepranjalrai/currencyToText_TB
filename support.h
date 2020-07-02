@@ -54,7 +54,10 @@ bool checkInput(string input)
         else if(input[i] == '.' && !pastDecimal)
             pastDecimal = true;
         else 
+        {
+            cout << "\n" << input << "_has invalid character : " << int(input[i]);
             return false;
+        }
 
     }
 
@@ -180,10 +183,16 @@ string currencyToText(string amount, char language_choice = 'e', char system_cho
 
             lable_no++;
         }
-
+        
         //Fixing the last 3 digits
         returnString += symbol( stoi( amount.substr(9, 3) ) );
     }
+
+    //Seperates two digit fraction
+    string fraction_part = amount.substr(13,2);
+    returnString += " ";
+    returnString += fraction_part;
+    returnString += "/100";
 
     fstream logFile("ignored/output-logs/outputs.txt", fstream::app);
     if(logFile.is_open())

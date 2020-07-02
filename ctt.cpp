@@ -3,6 +3,7 @@
 #include<stdio.h>
 
 #include"support.h"
+#include"fileHandling.h"
 
 using namespace std;
 
@@ -12,9 +13,20 @@ int main()
     cout << "\n\n.........................\n\n";
 
 start:
-    cout << "Enter the amount : ";
+    cout << "Enter the AMOUNT or FILE PATH (.txt) : ";
     string input_amount;
     cin >> input_amount;
+
+    if(isFile(input_amount))
+    {
+        //cout<<"This one's a file.\n";
+        bool result = processFile(input_amount);
+
+        if(result)
+            cout << "\nFile converted succesfully.\n";
+            
+        exit(0);
+    }
 
     if(!checkInput(input_amount))
     {
@@ -23,8 +35,7 @@ start:
     }
 
     string amount = refitNumber(input_amount);  //Standardises string as "000000000000.00"
-    string fraction_part = amount.substr(13,2); //Seperates two digit fraction
-
+    
     cout << "Choose Language (e/h/m/b/g) : ";
     char language_choice;
     cin >> language_choice;
@@ -35,9 +46,8 @@ start:
 
     cout << "\n₹ " << amount << " = ";
     cout << currencyToText(amount, language_choice, system_choice);
-    cout << "" << fraction_part << "/100.";
 
-    cout << "\n Convert again? (y/n) : ";
+    cout << "\n\nConvert again? (y/n) : ";
     char ans;
     cin >> ans;
     if(ans == 'y')
@@ -45,6 +55,7 @@ start:
         cout << endl;
         goto start;
     }
-    
+
+end:
     cout << "\n\n.........................\n\n";
 }
