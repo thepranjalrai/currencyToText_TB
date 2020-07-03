@@ -18,8 +18,7 @@ Two number systems are available.
 Allowed Inputs are :
 
 	1. Any Number with at max 12 whole digits. The fractional part is truncated to 2 digits.
-	2. Any File which ends in ".txt"
-		The values must be one on each line
+	2. Any File which ends in ".txt".The values must be one on each line
 		
 Note : If you want to send a file as input, keep the file in the repo directory, i.e.,currencyToText_TB-master and input the file name along with it's extension.
 
@@ -47,7 +46,7 @@ Note : If you want to send a file as input, keep the file in the repo directory,
 4. Click on the "Files" tab near top left.
 5. Click the "+ New" button next to search box.
 6. Drag and drop the downloaded repo (It should be uploaded)
-7. In the "Name your file, folder or paste in a link" field, enter a name such as "Terminal
+7. In the "Name your file, folder or paste in a link" field, enter a name such as "Terminal".
 8. In the dropdown menu next to it, select ">_Terminal(.term)" option. (A GNU terminal should appear)
 9. Enter these commands one by one
 	> unzip currencyToText_TB-master.zip
