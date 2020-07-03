@@ -51,7 +51,10 @@ Note : If you want to send a file as input, keep the file in the repo directory,
 8. In the dropdown menu next to it, select ">_Terminal(.term)" option. (A GNU terminal should appear)
 9. Enter these commands one by one
 	> unzip currencyToText_TB-master.zip
+	
 	> cd currencyToText_TB-master
+	
 	> make ctt
+	
 	> ./ctt
 	
