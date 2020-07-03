@@ -25,7 +25,7 @@ Note : If you want to send a file as input, keep the file in the repo directory,
 
 ## Instructions to run this program
 
-###If you are using a linux OS.
+### If you are using a linux OS.
 
 1. Clone the repo to your computer, it downloads as "currencyToText_TB-master.zip".
 2. Unzip the repo and enter it.
@@ -37,7 +37,7 @@ Note : If you want to send a file as input, keep the file in the repo directory,
 4. Execute by the command
 	> ./ctt
 
-###If you are using other OS, such as windows
+### If you are using other OS, such as windows
 
 1. Clone the repo to your computer, it downloads as "currencyToText_TB-master.zip".
 2. In your web browser, go to the website
