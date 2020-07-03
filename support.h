@@ -135,6 +135,7 @@ string currencyToText(string amount, char language_choice = 'e', char system_cho
                     break;
         case 'e' :  setLanguage("dictionaries/englishNumbers.txt");
                     break;
+        default  :  return "";
     }
 
     string returnString = "";
@@ -158,8 +159,7 @@ string currencyToText(string amount, char language_choice = 'e', char system_cho
             lable_no++;
         }
     }
-
-    if(system_choice == 'i') // Indian Number system ... 9,99,00,11,01,010.89  or 9,00,00,10,00,111.89
+    else if(system_choice == 'i') // Indian Number system ... 9,99,00,11,01,010.89  or 9,00,00,10,00,111.89
     {
         //Substrings should be read from indices {0, 1, 3, 5, 7, 9};
 
@@ -189,6 +189,7 @@ string currencyToText(string amount, char language_choice = 'e', char system_cho
         //Fixing the last 3 digits
         returnString += symbol( stoi( amount.substr(9, 3) ) );
     }
+    else return "";
 
     //Seperates two digit fraction
     string fraction_part = amount.substr(13,2);

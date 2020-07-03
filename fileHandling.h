@@ -42,17 +42,15 @@ string findAmount(string line)
 bool processFile(string filepath, char language_choice = 'e', char system_choice = 'w')
 {
     fstream inputFile(filepath, fstream::in);
-    
-    string outputAddress = filepath.substr(0, filepath.length()-4);
-    outputAddress += "_converted.txt";
-    fstream outputFile(outputAddress, fstream::out);
-
     if(!inputFile.is_open())
     {
         cout << "This file does not exist";
         return false;
     }
-
+    
+    string outputAddress = filepath.substr(0, filepath.length()-4);
+    outputAddress += "_converted.txt";
+    fstream outputFile(outputAddress, fstream::out);
     if(!outputFile.is_open())
     {
         cout << "Failed to create output file";

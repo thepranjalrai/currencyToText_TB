@@ -21,14 +21,32 @@ start:
     cout << "Choose Language (e/h/m/b/g) : ";
     char language_choice;
     cin >> language_choice;
+    {
+        char languages[] = {'e','h','b','g','m'};
+        bool language_ok = false;
+        for(char k : languages)
+            if(k == language_choice) language_ok = true;
+        if(!language_ok)
+        {
+            cout << "ERR : Invalid Input, please try again.\n\n";
+            goto start;
+        }
+    }
 
     cout << "Select Number System (w/i) : ";
     char system_choice;
     cin >> system_choice;
+    if(system_choice != 'w' && system_choice != 'i')
+    {
+        cout << "ERR : Invalid Input, please try again.\n\n";
+        goto start;
+    }
+
+    
 
     time_t startTime;
     time(&startTime);
-    cout << "\nProcess Begins at : " << startTime <<endl;
+    //cout << "\nProcess Begins at : " << startTime <<endl;
 
     if(isFile(input_amount))
     {
@@ -51,12 +69,12 @@ start:
     
     time_t endTime;
     time(&endTime);
-    cout << "\nProcess ends at : " << endTime <<endl;
+    //cout << "\nProcess ends at : " << endTime << endl;
 
     double executionTime = difftime(startTime, endTime);
-    cout << "Process Duration : " << executionTime;
+    cout << "\n\nProcess Duration : " << executionTime << " seconds";
 
-    cout << "\n\nConvert again? (y/n) : ";
+    cout << "\nConvert again? (y/n) : ";
     char ans;
     cin >> ans;
     if(ans == 'y')
