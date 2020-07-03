@@ -55,7 +55,7 @@ bool checkInput(string input)
             pastDecimal = true;
         else 
         {
-            cout << "\n" << input << "_has invalid character : " << int(input[i]);
+            //cout << "\n" << input << "_has invalid character : " << int(input[i]);
             return false;
         }
 
@@ -121,6 +121,8 @@ string uniformSpacing(string inputString)
 
 string currencyToText(string amount, char language_choice = 'e', char system_choice = 'w')
 {
+    amount = refitNumber(amount);
+
     switch (language_choice)
     {
         case 'h' :  setLanguage("dictionaries/hindiNumbers.txt");

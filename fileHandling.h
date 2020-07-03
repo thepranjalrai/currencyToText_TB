@@ -17,6 +17,7 @@ bool isFile(string input)
 }
 
 //Function Incomplete
+/*
 string findAmount(string line)
 {
     string probableAmount = "";
@@ -36,8 +37,9 @@ string findAmount(string line)
         }
     }
 }
+*/
 
-bool processFile(string filepath)
+bool processFile(string filepath, char language_choice = 'e', char system_choice = 'w')
 {
     fstream inputFile(filepath, fstream::in);
     
@@ -56,9 +58,6 @@ bool processFile(string filepath)
         cout << "Failed to create output file";
         return false;
     }
-
-    //cout << "\n" << outputAddress << "\n";
-    //fstream outputFile()
     
     outputFile << "Converting from " << filepath << "\n";
     while(!inputFile.eof())
@@ -72,7 +71,7 @@ bool processFile(string filepath)
             outputFile << "\"" << word << "\" is an " << "Invalid Amount.\n";
         }
         else
-            outputFile << word << " = " << currencyToText(refitNumber(word)) << "\n";
+            outputFile << word << ", " << currencyToText(refitNumber(word), language_choice, system_choice) << "\n";
     }
 
     outputFile.close();
