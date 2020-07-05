@@ -8,38 +8,84 @@
 
 using namespace std;
 
-bool isFile(string input)
+string fileType(string input)
 {
     if(input.length() < 5)
-        return false;
+        return "false";
 
-    return input.substr(input.length()-4, 4) == ".txt" ? true : false;
+    //return input.substr(input.length()-4, 4) == ".txt" ? true : false;
+    if(input.substr(input.length()-4, 4) == ".txt")
+        return "txt";
+    else if(input.substr(input.length()-4, 4) == ".csv")
+        return "csv";
+    else return "false";
 }
 
-//Function Incomplete
-/*
-string findAmount(string line)
+bool processCSV(string filepath, char language_choice = 'e', char system_choice = 'w')
 {
-    string probableAmount = "";
-    char k;
+    cout << "\nEnter the delimiter and the column number of amount.";
+    cout << "\nDelimiter : ";
+    char delim;
+    cin >> delim;
+    cout << "Column No : ";
+    int amtColumn = 0;
+    cin >> amtColumn;
 
-    for(int i=0; i< line.length(); i++)
+    fstream inputFile(filepath, fstream::in);
+    if(!inputFile.is_open())
     {
-        k = line[i];
-        if(k == '₹')
-        {
-            for(int j = i+1; j< line.length(); j++)
-            {
-                if(line[j] == ' ' && j != i+1)
-                    break;
-                
-            }
-        }
+        cout << "This file does not exist";
+        return false;
     }
-}
-*/
+    
+    string outputAddress = filepath.substr(0, filepath.length()-4);
+    outputAddress += "_converted.csv";
+    fstream outputFile(outputAddress, fstream::out);
+    if(!outputFile.is_open())
+    {
+        cout << "Failed to create output file";
+        return false;
+    }
 
-bool processFile(string filepath, char language_choice = 'e', char system_choice = 'w')
+    outputFile << "Converting from " << filepath << "\n";
+    while(!inputFile.eof())
+    {
+        //cout << "\n\n...\n";
+        string line;
+        getline(inputFile, line, '\r');
+        //cout<<line<<endl;
+        
+        int columnNo = 0;
+        int pos = 0;
+        for(pos; pos < line.length(); pos++)
+        {
+            if(line[pos] == delim) columnNo++;
+            if(columnNo == amtColumn -1) break;
+        }
+
+        if(!line.length()) continue;
+        
+        string amount = "";//line.substr(pos+1, end_pos-pos);
+        for(++pos; pos < line.length(); pos++)
+        {
+            if(line[pos] == delim) break;
+            amount += line[pos];
+        }
+
+        if(!checkInput(amount))
+        {
+            outputFile << "\"" << amount << "\" is an " << "Invalid Amount.\n";
+        }
+        else
+            outputFile << amount << ", " << currencyToText(refitNumber(amount), language_choice, system_choice) << "\r";
+    }
+
+    outputFile.close();
+    inputFile.close();
+    return true;
+}
+
+bool processTXT(string filepath, char language_choice = 'e', char system_choice = 'w')
 {
     fstream inputFile(filepath, fstream::in);
     if(!inputFile.is_open())

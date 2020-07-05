@@ -42,19 +42,27 @@ start:
         goto start;
     }
 
-    
-
     time_t startTime;
     time(&startTime);
     //cout << "\nProcess Begins at : " << startTime <<endl;
 
-    if(isFile(input_amount))
+    if(fileType(input_amount) == "txt")
     {
-        //cout<<"This one's a file.\n";
-        bool result = processFile(input_amount, language_choice, system_choice);
+        bool result = processTXT(input_amount, language_choice, system_choice);
 
         if(result)
             cout << "\nFile converted succesfully.\n";
+        else
+            cout << "\nThere was a problem converting the file.\n";       
+    }
+    else if(fileType(input_amount) == "csv")
+    {
+        bool result = processCSV(input_amount, language_choice, system_choice);
+
+        if(result)
+            cout << "\nFile converted succesfully.\n";
+        else
+            cout << "\nThere was a problem converting the file.\n";
     }
     else if(checkInput(input_amount))
     {
