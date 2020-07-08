@@ -5,8 +5,10 @@
 #include<fstream>
 
 #include"support.h"
+#include"parser.hpp"
 
 using namespace std;
+using namespace aria::csv;
 
 string fileType(string input)
 {
@@ -24,6 +26,14 @@ string fileType(string input)
 bool processCSV(string filepath, char language_choice = 'e', char system_choice = 'w')
 {
     cout << "\nEnter the delimiter and the column number of amount.";
+    
+    fstream inputFile(filepath, fstream::in);
+    if(!inputFile.is_open())
+    {
+        cout << "\"" << filepath << "\" This file does not exist";
+        return false;
+    }
+
     cout << "\nDelimiter : ";
     char delim;
     cin >> delim;
@@ -31,13 +41,6 @@ bool processCSV(string filepath, char language_choice = 'e', char system_choice 
     int amtColumn = 0;
     cin >> amtColumn;
 
-    fstream inputFile(filepath, fstream::in);
-    if(!inputFile.is_open())
-    {
-        cout << "This file does not exist";
-        return false;
-    }
-    
     string outputAddress = filepath.substr(0, filepath.length()-4);
     outputAddress += "_converted.csv";
     fstream outputFile(outputAddress, fstream::out);
@@ -48,30 +51,13 @@ bool processCSV(string filepath, char language_choice = 'e', char system_choice 
     }
 
     outputFile << "Converting from " << filepath << "\n";
-    while(!inputFile.eof())
+
+    CsvParser parser(inputFile);
+    parser.delimiter(delim);
+
+    for (auto& row : parser)
     {
-        //cout << "\n\n...\n";
-        string line;
-        getline(inputFile, line, '\r');
-        //cout<<line<<endl;
-        
-        int columnNo = 0;
-        int pos = 0;
-        for(pos; pos < line.length(); pos++)
-        {
-            if(line[pos] == delim) columnNo++;
-            if(columnNo == amtColumn -1) break;
-        }
-
-        if(!line.length()) continue;
-        
-        string amount = "";//line.substr(pos+1, end_pos-pos);
-        for(++pos; pos < line.length(); pos++)
-        {
-            if(line[pos] == delim) break;
-            amount += line[pos];
-        }
-
+        string amount = row[amtColumn-1];
         if(!checkInput(amount))
         {
             outputFile << "\"" << amount << "\" is an " << "Invalid Amount.\n";
@@ -79,7 +65,7 @@ bool processCSV(string filepath, char language_choice = 'e', char system_choice 
         else
             outputFile << amount << ", " << currencyToText(refitNumber(amount), language_choice, system_choice) << "\r";
     }
-
+    
     outputFile.close();
     inputFile.close();
     return true;
@@ -90,7 +76,7 @@ bool processTXT(string filepath, char language_choice = 'e', char system_choice 
     fstream inputFile(filepath, fstream::in);
     if(!inputFile.is_open())
     {
-        cout << "This file does not exist";
+        cout << "\"" << filepath << "\" This file does not exist";
         return false;
     }
     
@@ -115,7 +101,7 @@ bool processTXT(string filepath, char language_choice = 'e', char system_choice 
             outputFile << "\"" << word << "\" is an " << "Invalid Amount.\n";
         }
         else
-            outputFile << word << ", " << currencyToText(refitNumber(word), language_choice, system_choice) << "\n";
+            outputFile << word << ", " << currencyToText(refitNumber(word), language_choice, system_choice) << "\r\n";
     }
 
     outputFile.close();

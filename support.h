@@ -135,7 +135,7 @@ string currencyToText(string amount, char language_choice = 'e', char system_cho
                     break;
         case 'e' :  setLanguage("dictionaries/englishNumbers.txt");
                     break;
-        default  :  return "";
+        default  :  return "INVALID LANGUAGE";
     }
 
     string returnString = "";
