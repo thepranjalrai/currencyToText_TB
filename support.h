@@ -47,6 +47,9 @@ bool checkInput(string input)
     if(input.length() > inputLength || !input.length())
         return false;
 
+    if(input.length() > 12)
+        if(input[12] != '.') return false;
+
     for(int i=0; i < input.length(); i++)
     {   
         if( input[i] > 47 && input[i] < 58)
@@ -189,7 +192,7 @@ string currencyToText(string amount, char language_choice = 'e', char system_cho
         //Fixing the last 3 digits
         returnString += symbol( stoi( amount.substr(9, 3) ) );
     }
-    else return "";
+    else return "Invalid Number System";
 
     //Seperates two digit fraction
     string fraction_part = amount.substr(13,2);
