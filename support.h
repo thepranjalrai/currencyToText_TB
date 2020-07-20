@@ -40,15 +40,31 @@ void setLanguage(string file)
     dict.close();
 }
 
-bool checkInput(string input)
+bool checkInput(string input)   //1231231233.77
 {
     bool pastDecimal = false;
 
-    if(input.length() > inputLength || !input.length())
+    if(!input.length())
         return false;
 
+    if(input.length() >= inputLength)
+        input = input.substr(0, inputLength);
+
+    bool isdecimal = false;
     if(input.length() > 12)
-        if(input[12] != '.') return false;
+    {
+        for(int i=input.length()-1; i >= 0; i--)
+        {
+            if(input[i] == '.')
+            {
+                isdecimal = true;
+                break;
+            }
+        }
+
+        if(!isdecimal) return false;
+    }
+        //if(input[12] != '.') return false;
 
     for(int i=0; i < input.length(); i++)
     {   
