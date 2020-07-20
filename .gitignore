@@ -1,3 +1,7 @@
 .vscode/
 ctt
 ignored/
+server/server
+server/tests.cpp
+server/example_with_all.cpp
+server/requestLog.txt
