@@ -2,7 +2,7 @@
 //g++ -o server serverMain.cpp -std=c++1y -L/usr/lib64/ -lboost_system -lboost_thread -pthread
 
 #include "crow_all.h"
-#include "../support.h"
+//#include "../support.h"
 #include "application.cpp"
 
 int main()

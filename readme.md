@@ -22,7 +22,25 @@ Allowed Inputs are :
 		
 Note : If you want to send a file as input, keep the file in the repo directory, i.e., currencyToText_TB-master and input the file name along with it's extension.
 
-## Instructions to run this program
+## Instructions to access the WEB API
+
+Address : http://13.235.248.42:18080/params?
+
+In order to make this work, you have to append a query string to the given url.
+It may take 3 parameters :
+
+	1. amount
+	2. lang
+	3. sys
+
+A proper method will look like this : http://13.235.248.42:18080/params?amount=12345.67&sys=i&lang=h
+
+The API's implementation is far from perfect right now, but I hope you all can try it out, and let me know if it goes down or if there are any other bugs.
+
+> File processing through API is currently not available.
+> I encourage you to try and find bugs. Break my server pls.
+
+## Instructions to run the program locally
 
 ### If you are using a linux OS.
 

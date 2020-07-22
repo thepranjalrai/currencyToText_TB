@@ -3,14 +3,10 @@
 
 #include "crow_all.h"
 #include "../support.h"
-#include <iostream>
 #include <fstream>
 
 void setAPP(crow::SimpleApp *application)
 {
-    //Following macro is used in crow_all.h
-    //#define CROW_ROUTE(app, url) app.route<crow::black_magic::get_parameter_tag(url)>(url)
-
     //Greeting, the main page
     application->route<crow::black_magic::get_parameter_tag("/")>("/")([](){
         return "Hello from Pranjal!"; currencyToText("909090");

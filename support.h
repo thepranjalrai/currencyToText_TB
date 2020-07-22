@@ -20,7 +20,6 @@ string symbol(int n)            //retrieves required symbol
     }
 
     returnWord += languageSymbols[n%100];
-    //cout<<returnWord<<endl;
     return returnWord;
 }
 
@@ -40,19 +39,20 @@ void setLanguage(string file)
     dict.close();
 }
 
-bool checkInput(string input)   //1231231233.77
+bool checkInput(string input)   //Check for a valid numerical input
 {
     bool pastDecimal = false;
 
-    if(!input.length())
+    if(!input.length())                             //Reject empty strings
         return false;
 
-    if(input.length() >= inputLength)
-        input = input.substr(0, inputLength);
+    if(input.length() >= inputLength)               //Avoid trailing decimals to be safe
+        input = input.substr(0, inputLength);       //2 places after decimal make sense.
 
     bool isdecimal = false;
-    if(input.length() > 12)
-    {
+
+    if(input.length() > 12)                         //Upto 12 digit integers are supported
+    {                                               //Make sure, extra characters are fractional part
         for(int i=input.length()-1; i >= 0; i--)
         {
             if(input[i] == '.')
@@ -64,20 +64,17 @@ bool checkInput(string input)   //1231231233.77
 
         if(!isdecimal) return false;
     }
-        //if(input[12] != '.') return false;
 
-    for(int i=0; i < input.length(); i++)
+    for(int i=0; i < input.length(); i++)           
     {   
-        if( input[i] > 47 && input[i] < 58)
+        if( input[i] > 47 && input[i] < 58)         //Check all characters are numbers
             continue;
-        else if(input[i] == '.' && !pastDecimal)
+        else if(input[i] == '.' && !pastDecimal)    //Only one decimal allowed
             pastDecimal = true;
         else 
         {
-            //cout << "\n" << input << "_has invalid character : " << int(input[i]);
             return false;
         }
-
     }
 
     return true;
@@ -103,8 +100,6 @@ string refitNumber(string amount)
         {
             fraction += amount[i];
         }
-
-        //cout << whole << '\t' << fraction << endl;
     }
 
     //Refitting the amount into a 15 character format
@@ -140,9 +135,9 @@ string uniformSpacing(string inputString)
 
 string currencyToText(string amount, char language_choice = 'e', char system_choice = 'w')
 {
-    amount = refitNumber(amount);
+    amount = refitNumber(amount);   //Standardise the input
 
-    switch (language_choice)
+    switch (language_choice)        //Load the relevant dictionary
     {
         case 'h' :  setLanguage("dictionaries/hindiNumbers.txt");
                     break;
@@ -159,7 +154,7 @@ string currencyToText(string amount, char language_choice = 'e', char system_cho
 
     string returnString = "";
 
-    if(system_choice == 'w') // Western Number system ... 999,001,101,010.89
+    if(system_choice == 'w') // Western Number system ... e.g. 999,001,101,010.89
     {
         //Substrings should be read from indices {0, 3, 6, 9};
 
@@ -216,6 +211,7 @@ string currencyToText(string amount, char language_choice = 'e', char system_cho
     returnString += fraction_part;
     returnString += "/100";
 
+    //Keep a log
     fstream logFile("ignored/output-logs/outputs.txt", fstream::app);
     if(logFile.is_open())
     {
@@ -224,7 +220,7 @@ string currencyToText(string amount, char language_choice = 'e', char system_cho
     }
     logFile.close();
 
-    return uniformSpacing(returnString);
+    return uniformSpacing(returnString);    //Omit unnecessary spaces in the string
 }
 
 /////////////////////////////////////////////////////

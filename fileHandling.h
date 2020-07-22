@@ -8,14 +8,13 @@
 #include"parser.hpp"
 
 using namespace std;
-using namespace aria::csv;
+using namespace aria::csv;  //from parser.hpp
 
-string fileType(string input)
+string fileType(string input)   //To detect the filetype
 {
-    if(input.length() < 5)
+    if(input.length() < 5)      //Rejects names such as ".txt" or ".csv"
         return "false";
 
-    //return input.substr(input.length()-4, 4) == ".txt" ? true : false;
     if(input.substr(input.length()-4, 4) == ".txt")
         return "txt";
     else if(input.substr(input.length()-4, 4) == ".csv")
@@ -24,16 +23,15 @@ string fileType(string input)
 }
 
 bool processCSV(string filepath, char language_choice = 'e', char system_choice = 'w')
-{
-    cout << "\nEnter the delimiter and the column number of amount.";
-    
-    fstream inputFile(filepath, fstream::in);
+{    
+    fstream inputFile(filepath, fstream::in);                           //Check for input file
     if(!inputFile.is_open())
     {
         cout << "\"" << filepath << "\" This file does not exist";
         return false;
     }
 
+    cout << "\nEnter the delimiter and the column number of amount.";
     cout << "\nDelimiter : ";
     char delim;
     cin >> delim;
@@ -41,10 +39,10 @@ bool processCSV(string filepath, char language_choice = 'e', char system_choice 
     int amtColumn = 0;
     cin >> amtColumn;
 
-    string outputAddress = filepath.substr(0, filepath.length()-4);
+    string outputAddress = filepath.substr(0, filepath.length()-4);     //Create an output file
     outputAddress += "_converted.csv";
     fstream outputFile(outputAddress, fstream::out);
-    if(!outputFile.is_open())
+    if(!outputFile.is_open())                                           //Check if the outfile is created
     {
         cout << "Failed to create output file";
         return false;
@@ -52,7 +50,7 @@ bool processCSV(string filepath, char language_choice = 'e', char system_choice 
 
     outputFile << "Converting from " << filepath << "\n";
 
-    CsvParser parser(inputFile);
+    CsvParser parser(inputFile);    //Parsing and converting
     parser.delimiter(delim);
 
     for (auto& row : parser)
@@ -73,23 +71,23 @@ bool processCSV(string filepath, char language_choice = 'e', char system_choice 
 
 bool processTXT(string filepath, char language_choice = 'e', char system_choice = 'w')
 {
-    fstream inputFile(filepath, fstream::in);
+    fstream inputFile(filepath, fstream::in);                           //Check for input file
     if(!inputFile.is_open())
     {
         cout << "\"" << filepath << "\" This file does not exist";
         return false;
     }
     
-    string outputAddress = filepath.substr(0, filepath.length()-4);
+    string outputAddress = filepath.substr(0, filepath.length()-4);     //Create an output file
     outputAddress += "_converted.txt";
-    fstream outputFile(outputAddress, fstream::out);
-    if(!outputFile.is_open())
+    fstream outputFile(outputAddress, fstream::out);                    //Check if the outfile is created
+    if(!outputFile.is_open())                                           
     {
         cout << "Failed to create output file";
         return false;
     }
     
-    outputFile << "Converting from " << filepath << "\n";
+    outputFile << "Converting from " << filepath << "\n";               //Convert line by line and write to putput file
     while(!inputFile.eof())
     {
         string word;

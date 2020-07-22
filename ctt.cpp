@@ -1,12 +1,12 @@
 #include<iostream>
 #include<fstream>
-#include<stdio.h>
-#include<time.h>
+#include<chrono>
 
 #include"support.h"
 #include"fileHandling.h"
 
 using namespace std;
+using namespace std::chrono;
 
 //ENTRY-POINT MAIN FUNCTION
 int main()
@@ -42,11 +42,10 @@ start:
         goto start;
     }
 
-    time_t startTime;
-    time(&startTime);
-    //cout << "\nProcess Begins at : " << startTime <<endl;
+    //Timing the process since input
+    auto startTime = high_resolution_clock::now(); 
 
-    if(fileType(input_amount) == "txt")
+    if(fileType(input_amount) == "txt")         //Check if the input is a TXT, process.
     {
         bool result = processTXT(input_amount, language_choice, system_choice);
 
@@ -55,7 +54,7 @@ start:
         else
             cout << "\nThere was a problem converting the file.\n";       
     }
-    else if(fileType(input_amount) == "csv")
+    else if(fileType(input_amount) == "csv")    //Check if the input is a CSV, process.
     {
         bool result = processCSV(input_amount, language_choice, system_choice);
 
@@ -64,7 +63,7 @@ start:
         else
             cout << "\nThere was a problem converting the file.\n";
     }
-    else if(checkInput(input_amount))
+    else if(checkInput(input_amount))          //Check if the input is an amount, process.
     {
         cout << "\n₹ " << input_amount << " = ";
         cout << currencyToText(input_amount, language_choice, system_choice);
@@ -74,14 +73,12 @@ start:
         cout << "ERR : Invalid Input, please try again.\n\n";
         goto start;
     }
-    
-    time_t endTime;
-    time(&endTime);
-    //cout << "\nProcess ends at : " << endTime << endl;
 
-    double executionTime = difftime(startTime, endTime);
-    cout << "\n\nProcess Duration : " << executionTime << " seconds";
+    auto endTime = high_resolution_clock::now();
+    auto duration = duration_cast<microseconds>(endTime - startTime); 
+    cout << "\n\nProcess Duration : " << duration.count() << "ms";
 
+    //Repeat Loop
     cout << "\nConvert again? (y/n) : ";
     char ans;
     cin >> ans;
