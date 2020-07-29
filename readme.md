@@ -24,7 +24,7 @@ Note : If you want to send a file as input, keep the file in the repo directory,
 
 ## Instructions to access the WEB API
 
-Address : http://13.235.248.42:18080/params?
+Address : http://13.235.222.118:18080/params?
 
 In order to make this work, you have to append a query string to the given url.
 It may take 3 parameters :
@@ -33,7 +33,7 @@ It may take 3 parameters :
 	2. lang
 	3. sys
 
-A proper method will look like this : http://13.235.248.42:18080/params?amount=12345.67&sys=i&lang=h
+A proper method will look like this : http://13.235.222.118:18080/params?amount=12345.67&sys=i&lang=h
 
 The API's implementation is far from perfect right now, but I hope you all can try it out, and let me know if it goes down or if there are any other bugs.
 
